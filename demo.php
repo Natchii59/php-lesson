@@ -1,16 +1,51 @@
 <?php
-$insultes = ['merde', 'con'];
-$insultes_censure = [];
-foreach ($insultes as $insulte) {
-  $insultes_censure[] = substr($insulte, 0, 1) . str_repeat('*', strlen($insulte) - 1);
+function repondre_oui_non(string $phrase): bool
+{
+  while (true) {
+    $result = strtolower(readline($phrase . ' - o/n '));
+    if ($result === 'o') return true;
+    elseif ($result === 'n') return false;
+  }
 }
 
-$phrase = strtolower(readline('Entrez une phrase : '));
+function demander_creneau(string $phrase = 'Veuillez entrer un créneau'): array
+{
+  echo $phrase . PHP_EOL;
 
-$phrase = str_replace($insultes, $insultes_censure, $phrase);
+  while (true) {
+    $ouverture = (int)readline("Heure d'ouverture : ");
+    if ($ouverture >= 0 && $ouverture <= 23) break;
+  }
 
-// foreach ($insultes as $insulte) {
-//   $phrase = str_replace($insulte, str_repeat('*', strlen($insulte)), $phrase);
-// }
+  while (true) {
+    $fermeture = (int)readline("Heure de fermeture : ");
+    if ($fermeture >= 0 && $fermeture <= 23 && $ouverture < $fermeture) break;
+  }
 
-echo $phrase . PHP_EOL;
+  return [
+    'ouverture' => $ouverture,
+    'fermeture' => $fermeture,
+  ];
+}
+
+function demander_creneaux(string $phrase = 'Veuillez entrer des créneaux'): array
+{
+  echo $phrase . PHP_EOL;
+  $creneaux = [];
+
+  while (true) {
+    $creneaux[] = demander_creneau();
+
+    $action = strtolower(readline('Voulez-vous ajouter un créneau ? (o/n) '));
+    if ($action === 'n') break;
+  }
+
+  return $creneaux;
+}
+
+function demo(string $param): void
+{
+  var_dump($param);
+}
+
+demo(1.2);
