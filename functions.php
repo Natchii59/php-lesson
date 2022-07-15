@@ -1,12 +1,20 @@
 <?php
-
-function repondre_oui_non(string $phrase): bool
+function nav_item(string $file, string $name, string $linkClass = ''): string
 {
-  while (true) {
-    $result = strtolower(readline($phrase . ' - o/n '));
-    if ($result === 'o') return true;
-    elseif ($result === 'n') return false;
-  }
+  $class = 'nav-link';
+
+  if ($_SERVER['SCRIPT_NAME'] === $file) $class .= ' active';
+
+  return <<<HTML
+  <li class="$linkClass">
+    <a class="$class" href="$file">$name</a>
+  </li>
+  HTML;
 }
 
-require_once './functions_creneaux.php';
+function nav_menu(string $linkClass = ''): string
+{
+  return
+    nav_item('/index.php', 'Accueil', $linkClass) .
+    nav_item('/contact.php', 'Contact', $linkClass);
+}
