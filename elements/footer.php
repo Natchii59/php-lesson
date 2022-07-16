@@ -8,7 +8,16 @@ require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'functions.php';
   <hr />
 
   <div class="row">
-    <div class="col-md-4"></div>
+    <div class="col-md-4">
+      <?php
+      require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'functions' . DIRECTORY_SEPARATOR . 'compteur.php';
+      add_compteur();
+      $vues = read_compteur();
+      $vuesDaily = read_compteur_daily();
+      ?>
+      Il y a <?= $vues; ?> visite<?= $vues > 1 ? 's' : ''; ?> sur le site<br />
+      Il y a <?= $vuesDaily; ?> visite<?= $vuesDaily > 1 ? 's' : ''; ?> sur le site aujourd'hui
+    </div>
 
     <div class="col-md-4">
       <form action="../newsletter.php" method="POST" class="form-inline">
