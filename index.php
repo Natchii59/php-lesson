@@ -1,6 +1,5 @@
 <?php
 $title = "Page d'accueil";
-$nav = 'index';
 require './header.php';
 ?>
 

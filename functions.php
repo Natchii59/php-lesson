@@ -39,3 +39,24 @@ function radio(string $name, string $value, array $datas): string
     <input type="radio" name="$name" id="$value" value="$value" $attributes />
   HTML;
 }
+
+function creneaux_html(array $creneaux): string
+{
+  if (empty($creneaux)) return 'Fermé';
+
+  $new_creneaux = [];
+  foreach ($creneaux as $creneau) {
+    $new_creneaux[] = "de <strong>{$creneau[0]}h</strong> à <strong>{$creneau[1]}h</strong>";
+  }
+
+  return 'Ouvert ' . implode(' et ', $new_creneaux);
+}
+
+function in_creneaux(int $heure, array $creneaux): bool
+{
+  foreach ($creneaux as $creneau) {
+    if ($heure >= $creneau[0] && $heure < $creneau[1]) return true;
+  }
+
+  return false;
+}
