@@ -4,14 +4,28 @@ require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'functions.php';
 
 </main>
 
-<footer class="row">
-  <div class="col-md-4"></div>
-  <div class="col-md-4"></div>
-  <div class="col-md-4">
-    <h5>Navigation</h5>
-    <ul class="list-unstyled text-small">
-      <?= nav_menu(); ?>
-    </ul>
+<footer>
+  <hr />
+
+  <div class="row">
+    <div class="col-md-4"></div>
+
+    <div class="col-md-4">
+      <form action="../newsletter.php" method="POST" class="form-inline">
+        <div class="form-group mb-2">
+          <input type="email" class="form-control" name="email" id="email" placeholder="Entrez votre email" required />
+        </div>
+
+        <button class="btn btn-primary" type="submit">S'inscrire</button>
+      </form>
+    </div>
+
+    <div class="col-md-4">
+      <h5>Navigation</h5>
+      <ul class="list-unstyled text-small">
+        <?= nav_menu(); ?>
+      </ul>
+    </div>
   </div>
 </footer>
 
