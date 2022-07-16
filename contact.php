@@ -1,5 +1,5 @@
 <?php
-require_once './config.php';
+require_once './data/config.php';
 require_once './functions.php';
 
 date_default_timezone_set('Europe/Paris');
@@ -8,7 +8,7 @@ $jourIndex = (int)($_GET['jour'] ?? date('N') - 1);
 $ouvert = in_creneaux($heure, CRENEAUX[$jourIndex]);
 
 $title = "Page de contact";
-require './header.php';
+require './elements/header.php';
 ?>
 
 <div class="row">
@@ -59,4 +59,4 @@ require './header.php';
   </div>
 </div>
 
-<?php require './footer.php'; ?>
+<?php require './elements/footer.php'; ?>

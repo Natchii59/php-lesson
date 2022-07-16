@@ -40,7 +40,7 @@ foreach (['parfum', 'supplement', 'cornet'] as $name) {
 }
 
 $title = 'Composez votre glace';
-require './header.php';
+require './elements/header.php';
 ?>
 
 <h1 class="mb-4">Composez votre glace</h1>
@@ -108,4 +108,4 @@ require './header.php';
   </form>
 </div>
 
-<?php require './footer.php'; ?>
+<?php require './elements/footer.php'; ?>
