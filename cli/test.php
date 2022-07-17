@@ -1,13 +1,7 @@
 <?php
-$path = __DIR__ . DIRECTORY_SEPARATOR . 'demo.csv';
-$file = fopen($path, 'r+');
+$d = '2010-04-01';
+$d2 = '2022-06-02';
 
-$k = 0;
-while ($line = fgets($file)) {
-  $k++;
-  if ($k == 1) {
-    fwrite($file, 'Coucou');
-    break;
-  }
-}
-fclose($file);
+$date = new DateTime($d);
+$date2 = new DateTime($d2);
+echo $date->diff($date2, true)->format('%d days, %m months, %y years') . PHP_EOL;
