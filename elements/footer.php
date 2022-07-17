@@ -10,13 +10,13 @@ require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'functions.php';
   <div class="row">
     <div class="col-md-4">
       <?php
-      require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'functions' . DIRECTORY_SEPARATOR . 'compteur.php';
-      add_compteur();
-      $vues = read_compteur();
-      $vuesDaily = read_compteur_daily();
+      require_once dirname(__DIR__) . DIRECTORY_SEPARATOR . 'class' . DIRECTORY_SEPARATOR . 'DoubleCompteur.php';
+      $compteur = new DoubleCompteur(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'data' . DIRECTORY_SEPARATOR . 'compteur');
+      $compteur->incrementer();
+      $vues = $compteur->recuperer();
       ?>
       Il y a <?= $vues; ?> visite<?= $vues > 1 ? 's' : ''; ?> sur le site<br />
-      Il y a <?= $vuesDaily; ?> visite<?= $vuesDaily > 1 ? 's' : ''; ?> sur le site aujourd'hui
+      <!-- Il y a <?= $vuesDaily; ?> visite<?= $vuesDaily > 1 ? 's' : ''; ?> sur le site aujourd'hui -->
     </div>
 
     <div class="col-md-4">
