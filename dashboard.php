@@ -1,5 +1,8 @@
 <?php
-require './functions/compteur.php';
+require_once './functions/auth.php';
+force_connected_user();
+
+require_once './functions/compteur.php';
 
 $annee = (int)date('Y');
 
@@ -33,7 +36,7 @@ $mois = [
   '12' => 'Décembre',
 ];
 
-require './elements/header.php';
+require_once './elements/header.php';
 ?>
 
 <div class="row">
