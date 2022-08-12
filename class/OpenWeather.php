@@ -1,4 +1,7 @@
 <?php
+require_once 'CurlException.php';
+require_once 'HttpException.php';
+
 class OpenWeather
 {
   const BASE_URI = 'https://api.openweathermap.org/data/2.5';
@@ -21,11 +24,20 @@ class OpenWeather
     $data = curl_exec($curl);
 
     if ($data === false) {
-      var_dump(curl_error($curl));
-      exit();
+      throw new CurlExpception($curl);
     }
 
-    if (curl_getinfo($curl, CURLINFO_HTTP_CODE) !== 200)  exit();
+    $code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+    if ($code !== 200) {
+      curl_close($curl);
+
+      if ($code === 401) {
+        $data = json_decode($data, true);
+        throw new UnauthorizedHttpException($data['message'], $code);
+      }
+
+      throw new HttpException($data, $code);
+    }
 
     $data = json_decode($data, true);
 
@@ -36,7 +48,7 @@ class OpenWeather
 
   public function getToday(string $city): array
   {
-    $data = $this->get_data_curl(self::BASE_URI . '/forecast/dailyq=' . $city . '&appid=' . $this->api_key . '&units=' . self::UNITS . '&lang=' . self::LANG);
+    $data = $this->get_data_curl(self::BASE_URI . '/weather?q=' . $city . '&appid=' . $this->api_key . '&units=' . self::UNITS . '&lang=' . self::LANG);
     $date = new DateTime();
     $date->setTimestamp($data['dt']);
 
