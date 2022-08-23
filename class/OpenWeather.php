@@ -15,6 +15,17 @@ class OpenWeather
     $this->api_key = $api_key;
   }
 
+  /**
+   * Récupère les informations JSON de l'url api
+   *
+   * @param string $url URL API
+   * 
+   * @throws CurlExpception
+   * @throws UnauthorizedHttpException
+   * @throws HttpException
+   * 
+   * @return array
+   */
   private function get_data_curl(string $url): array
   {
     $curl = curl_init($url);
@@ -46,6 +57,13 @@ class OpenWeather
     return $data;
   }
 
+  /**
+   * Récupère les informations météorologique du jour
+   *
+   * @param string $city Ville (ex: Lille)
+   * 
+   * @return array
+   */
   public function getToday(string $city): array
   {
     $data = $this->get_data_curl(self::BASE_URI . '/weather?q=' . $city . '&appid=' . $this->api_key . '&units=' . self::UNITS . '&lang=' . self::LANG);
